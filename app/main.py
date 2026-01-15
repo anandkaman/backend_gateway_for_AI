@@ -114,12 +114,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Set maximum request body size (10MB for images/PDFs)
-app.add_middleware(
-    lambda app: app,
-    max_upload_size=10 * 1024 * 1024  # 10MB
-)
-
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
