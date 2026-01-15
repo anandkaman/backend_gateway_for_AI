@@ -9,7 +9,7 @@ A production-ready FastAPI gateway for managing multiple AI models with intellig
 
 ---
 
-## 🚀 Features
+##  Features
 
 ### Core Capabilities
 - **Multi-Model Support**: Manage multiple AI models (text generation, OCR, etc.)
@@ -53,7 +53,7 @@ A production-ready FastAPI gateway for managing multiple AI models with intellig
 
 ---
 
-## ⚡ Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -108,7 +108,7 @@ curl -X POST "http://localhost:8080/auth/token" \
 
 ---
 
-## 📦 Installation
+##  Installation
 
 ### Option 1: Docker (Recommended)
 
@@ -179,7 +179,7 @@ SERVER_PORT=8080
 
 ---
 
-## 📚 API Documentation
+##  API Documentation
 
 ### Authentication
 
@@ -237,7 +237,7 @@ Headers:
 
 ---
 
-## 🐳 Docker Deployment
+##  Docker Deployment
 
 ### Build Custom Image
 
@@ -267,7 +267,7 @@ services:
 
 ---
 
-## 🔒 Security
+##  Security
 
 ### For Production
 
@@ -298,25 +298,25 @@ services:
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────┐
-│         Client Applications              │
+│         Client Applications             │
 │    (JWT Auth + Request Headers)         │
 └──────────────┬──────────────────────────┘
                │
                ▼
 ┌─────────────────────────────────────────┐
 │      FastAPI Gateway (Port 8080)        │
-│  ┌──────────┐  ┌──────────┐            │
-│  │ JWT Auth │  │ Queue    │            │
-│  │          │  │ (10+10)  │            │
-│  └──────────┘  └──────────┘            │
-│  ┌──────────┐  ┌──────────┐            │
-│  │ MongoDB  │  │ Metrics  │            │
-│  │ (15d)    │  │ Collector│            │
-│  └──────────┘  └──────────┘            │
+│  ┌──────────┐  ┌──────────┐             │
+│  │ JWT Auth │  │ Queue    │             │
+│  │          │  │ (10+10)  │             │
+│  └──────────┘  └──────────┘             │
+│  ┌──────────┐  ┌──────────┐             │
+│  │ MongoDB  │  │ Metrics  │             │
+│  │ (15d)    │  │ Collector│             │
+│  └──────────┘  └──────────┘             │
 └──────────────┬──────────────────────────┘
                │
                ▼
@@ -338,7 +338,7 @@ services:
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 ### Run Tests
 
@@ -375,7 +375,7 @@ print(response.json())
 
 ---
 
-## 📊 Monitoring
+##  Monitoring
 
 ### Queue Metrics
 
@@ -406,7 +406,7 @@ docker-compose logs -f mongodb
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -418,13 +418,13 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📝 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework
 - [vLLM](https://github.com/vllm-project/vllm) - LLM serving
@@ -433,7 +433,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 Support
+##  Support
 
 - **Documentation**: See [docs/](docs/) folder
 - **Issues**: [GitHub Issues](https://github.com/anandkaman/backend_gateway_for_AI/issues)
@@ -441,7 +441,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🗺️ Roadmap
+##  Roadmap
 
 - [ ] Web UI dashboard
 - [ ] More model integrations
