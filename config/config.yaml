@@ -1,0 +1,72 @@
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 8080
+  workers: 4
+  reload: false
+
+# Model Configuration
+models:
+  gemma:
+    name: "google/gemma-3-4b-it"
+    port: 8000
+    gpu_memory: 0.95
+    max_model_len: 2048
+    max_concurrent: 10
+    enabled: true
+  
+  deepseek:
+    name: "deepseek-ai/DeepSeek-OCR"
+    port: 8001
+    gpu_memory: 0.90
+    max_model_len: 4096
+    max_concurrent: 2
+    resolution_mode: "large"  # tiny|small|base|large|gundam
+    enabled: true
+
+# Queue Configuration (Crash-Proof)
+queue:
+  max_waiting: 10  # Additional queue per model (10+10 total)
+  timeout: 300     # Request timeout in seconds
+  priority_enabled: true
+  persistence_enabled: true  # Enable crash recovery
+  recovery_check_interval: 60  # Check for crashes every 60s
+
+# Auto-Switching Configuration
+auto_switch:
+  enabled: true
+  pattern_window_days: 7
+  min_requests_for_switch: 10
+  switch_cooldown_minutes: 5
+
+# Authentication
+auth:
+  jwt_secret: "${JWT_SECRET}"  # Set in environment
+  jwt_algorithm: "HS256"
+  access_token_expire_minutes: 60
+  refresh_token_expire_days: 7
+
+# MongoDB Configuration
+mongodb:
+  uri: "mongodb://mongodb:27017"
+  database: "ai_gateway"
+  history_retention_days: 15
+  collections:
+    requests: "request_history"
+    crashes: "crash_logs"
+    metrics: "metrics"
+    missing_models: "missing_model_requests"
+    queue_state: "queue_state"  # For crash recovery
+
+# Monitoring
+monitoring:
+  enabled: true
+  metrics_interval_seconds: 60
+  crash_detection: true
+  log_level: "INFO"
+
+# Rate Limiting
+rate_limit:
+  enabled: true
+  requests_per_minute: 60
+  burst: 10

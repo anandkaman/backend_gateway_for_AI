@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # MongoDB
+  mongodb:
+    image: mongo:7.0
+    container_name: ai_gateway_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=ai_gateway
+    networks:
+      - ai_gateway_network
+
+  # FastAPI Gateway
+  gateway:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ai_gateway_api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+    volumes:
+      - ../app:/app/app
+      - ../config:/app/config
+      - ../logs:/app/logs
+    depends_on:
+      - mongodb
+    networks:
+      - ai_gateway_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  ai_gateway_network:
+    driver: bridge
