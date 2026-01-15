@@ -17,6 +17,7 @@ from app.database.mongodb import mongodb
 from app.models.manager import ModelManager, OCRResolution
 from app.models.queue import CrashProofQueue, Priority, QueueFullError
 from app.auth.jwt_handler import get_current_user, create_tokens
+from app.auth.api_keys import APIKeyManager
 from app.monitoring.auto_switcher import AutoSwitcher
 
 
@@ -32,6 +33,7 @@ logger = logging.getLogger(__name__)
 model_manager: Optional[ModelManager] = None
 queues: Dict[str, CrashProofQueue] = {}
 auto_switcher: Optional[AutoSwitcher] = None
+api_key_manager: Optional[APIKeyManager] = None
 cleanup_task: Optional[asyncio.Task] = None
 
 
@@ -67,6 +69,14 @@ async def lifespan(app: FastAPI):
     # Initialize auto-switcher
     auto_switcher = AutoSwitcher(model_manager, queues)
     await auto_switcher.start()
+    
+    # Initialize API key manager
+    api_key_manager = APIKeyManager(
+        mongodb_client=mongodb.client,
+        db_name=config.mongodb.database
+    )
+    await api_key_manager.initialize()
+    logger.info("API key manager initialized")
     
     # Start cleanup task
     cleanup_task = asyncio.create_task(periodic_cleanup())
